@@ -1,24 +1,19 @@
-function add(n1: number, n2: number, showResult: boolean, phrase: string){
-    // if(typeof n1 !== "number" || typeof n2 !== "number"){
-    //     throw new Error('入力値が正しくありません')
-    // }
-    const result = n1 + n2;
-    if(showResult){
-        console.log(phrase + result)
-    }else{
-
-        return result
-    }
+// const person: {
+//     name: string;
+//     age: number;
+// } = {
+const person = {
+    name: 'tomoki',
+    age: 30,
+    hobbies: ['sports', 'cokkies']
 }
 
-let number1: number
-number1 = 5
-const number2 = 2.8
-const printResult = true
-let resultPhrase = "result"
-// resultPhrase = 0
+let favoriteActivities: string[]
+favoriteActivities = ['sports']
 
-// const result = add(number1, number2, printResult)
-// console.log(result)
+console.log(person.name)
 
-add(number1, number2, printResult, resultPhrase)
+for (const hobby of person.hobbies) {
+    console.log(hobby.toUpperCase())
+    // console.log(hobby.map())
+} 
