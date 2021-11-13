@@ -7,3 +7,4 @@ function sendAnalytics(data) {
     console.log(logged);
 }
 sendAnalytics('the data');
+//# sourceMappingURL=analytics.js.map
