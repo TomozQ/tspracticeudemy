@@ -1,7 +1,36 @@
-const button = document.querySelector('button')!
+// const useerName = 'Max'
+// // userName = 'Maximilian'
+// let age = 30
 
-button.addEventListener('click', () => {
-    console.log('clicked')
-})
+// age = 29
 
-// const map = new Map
+// function add(a: number, b: number){
+//     let result
+//     result = a+b
+//     return result
+// }
+
+// if (age >= 20){
+//     let isAdult = true
+// }
+
+// console.log(isAdult)
+
+//const, letはブロック内でしか使用できないようになっている（varはアクセスできる）
+
+const add = (a: number, b: number) =>  a+b
+
+const printOutput: (output: string | number) => void = output => {
+    console.log(output)
+}
+
+
+printOutput(add(2,5))
+
+const button = document.querySelector('button')
+
+if (button){
+    button.addEventListener('click', e => {
+        console.log(e)
+    })
+}
