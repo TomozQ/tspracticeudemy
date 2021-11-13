@@ -1,51 +1,16 @@
-// const person: {
-//     name: string;
-//     age: number;
-// } = {
-// const person: {
-//     name: string
-//     age: number
-//     hobbies: string[]
-//     role: [number, string]
-// } = {
-//     name: 'tomoki',
-//     age: 30,
-//     hobbies: ['sports', 'cokkies'],
-//     role: [2, 'author'],
-// }
+function combine(input1: number | string, input2: number | string) {
+    let result;
 
-// const ADMIN = 0
-// const READ_ONLY = 1
-// const AUTHER = 2
-
-enum Role {    //enumの定義
-    ADMIN = 'ADMIN' ,
-    READ_ONLY = 100, 
-    AUTHOR = 200,
+    if (typeof input1 === "number" && typeof input2 === "number"){
+        result = input1 + input2;
+    }else{
+        result = input1.toString() + input2.toString()
+    }
+    return result;
 }
 
-const person = {
-    name: 'tomoki',
-    age: 30,
-    hobbies: ['sports', 'cokkies'],
-    role: Role.ADMIN,
-}
+const combinedAges = combine(30, 26)
+console.log(combinedAges)
 
-// person.role.push('admin') pushは許可されてしまう。
-// person.role[1] = 10
-
-// person.role = [0, 'admin', 'user']
-
-let favoriteActivities: string[]
-favoriteActivities = ['sports']
-
-console.log(person.name)
-
-for (const hobby of person.hobbies) {
-    console.log(hobby.toUpperCase())
-    // console.log(hobby.map())
-}
-
-if (person.role === Role.ADMIN){
-    console.log('管理者ユーザー')
-}
+const combinedNames = combine('Max', 'Annna')
+console.log(combinedNames)
