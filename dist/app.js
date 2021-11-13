@@ -10,4 +10,13 @@ if (button) {
         console.log(e);
     });
 }
+const hobbies = ['sports', 'cokking'];
+const activeHobbies = ['hiking', ...hobbies];
+console.log(activeHobbies);
+const person = {
+    name: 'max',
+    age: 30
+};
+const copiedPerson = Object.assign({}, person);
+console.log(copiedPerson);
 //# sourceMappingURL=app.js.map

@@ -34,3 +34,23 @@ if (button){
         console.log(e)
     })
 }
+
+const hobbies = ['sports', 'cokking']
+// console.log(hobbies[0])
+const activeHobbies = ['hiking', ...hobbies] //スプレッド演算子
+// activeHobbies.push(...hobbies)
+
+console.log(activeHobbies)
+
+const person = {
+    name: 'max',
+    age: 30
+}
+
+// const copiedPerson = person  //参照のコピー
+
+const copiedPerson = { //オブジェクトのコピー
+    ...person,
+}
+
+console.log(copiedPerson)
