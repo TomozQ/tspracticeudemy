@@ -1,9 +1,4 @@
 "use strict";
-const add = (a, b = 1) => a + b;
-const printOutput = output => {
-    console.log(output);
-};
-printOutput(add(2));
 const button = document.querySelector('button');
 if (button) {
     button.addEventListener('click', e => {
@@ -19,4 +14,11 @@ const person = {
 };
 const copiedPerson = Object.assign({}, person);
 console.log(copiedPerson);
+const add = (...numbers) => {
+    return numbers.reduce((curResult, curValue) => {
+        return curResult + curValue;
+    }, 0);
+};
+const addedNumbers = add(5, 10, 2, 3.7);
+console.log(addedNumbers);
 //# sourceMappingURL=app.js.map

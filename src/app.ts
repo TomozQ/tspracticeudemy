@@ -18,14 +18,14 @@
 
 //const, letはブロック内でしか使用できないようになっている（varはアクセスできる）
 
-const add = (a: number, b: number = 1) =>  a+b  //デフォルト値は右側のパラメータにしか設定できない
+// const add = (a: number, b: number = 1) =>  a+b  //デフォルト値は右側のパラメータにしか設定できない
 
-const printOutput: (output: string | number) => void = output => {
-    console.log(output)
-}
+// const printOutput: (output: string | number) => void = output => {
+//     console.log(output)
+// }
 
 
-printOutput(add(2))
+// printOutput(add(2))
 
 const button = document.querySelector('button')
 
@@ -54,3 +54,21 @@ const copiedPerson = { //オブジェクトのコピー
 }
 
 console.log(copiedPerson)
+
+//rest parameter
+const add = (...numbers: number[]) => { //rest parameter 任意の数の引数を取得することができる。
+    return numbers.reduce((curResult, curValue) => {  //reduce -> 配列に扱える関数
+        return curResult + curValue
+    }, 0) //curResult->現在の計算結果、curValue->現在の要素（numbersの要素がひとつずつ入ってくる）
+}
+// const add = (...numbers: [number, number, number]) => { //tupleとの組み合わせも可能
+//     return numbers.reduce((curResult, curValue) => { 
+//         return curResult + curValue
+//     }, 0) 
+// }
+
+const addedNumbers = add(5,10,2,3.7)
+console.log(addedNumbers)
+
+// const addedNumbers = add(5,10,2)
+// console.log(addedNumbers)
