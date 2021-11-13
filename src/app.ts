@@ -1,5 +1,5 @@
 // const useerName = 'Max'
-// // userName = 'Maximilian'
+// userName = 'Maximilian'
 // let age = 30
 
 // age = 29
@@ -43,7 +43,7 @@ const activeHobbies = ['hiking', ...hobbies] //スプレッド演算子
 console.log(activeHobbies)
 
 const person = {
-    name: 'max',
+    firstname: 'max',
     age: 30
 }
 
@@ -72,3 +72,13 @@ console.log(addedNumbers)
 
 // const addedNumbers = add(5,10,2)
 // console.log(addedNumbers)
+
+// 分割代入
+// const hobby1 = hobbies[0]
+// const hobby2 = hobbies[1]
+
+const [hobby1, hobby2, ...remaingHobbies] = hobbies //分割代入 + スプレッド演算子　1つ目と2つ目以外の残りの要素はremaingHobbiesという配列に代入される
+console.log(hobbies, hobby1, hobby2)  //配列の値をコピー　コピー元の要素は削除されない
+
+const { firstname: userName, age } = person  //オブジェクトの分割代入　オブジェクトに存在するプロパティ名でないとならない 「: 定数」とすることで定数名を上書きできる。
+console.log(userName, age, person)
