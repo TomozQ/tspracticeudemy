@@ -1,17 +1,20 @@
 class Department {
-    name: string
+    // private readonly id: string
+    // name: string
     private employees: string[] = [] // private クラスの内部からのみアクセスできる
 
-    constructor(n: string) {
-        this.name = n
+    constructor(private readonly id: string, public name: string) {  //上にプロパティを記述しなくてもここに定義することでショートカットできる
+        // this.id = id                                                 //readonly -> 初期化以降値を変更できないようにする
+        // this.name = n
     }
 
     describe(this: Department){  //ダミーパラメータを使用することで堅牢にする
-        console.log("Department: " + this.name)
+        console.log(`Department (${this.id}): ${this.name}`)
     }
 
     addEmployee(employee: string){
         this.employees.push(employee)
+        // this.id = 'd2' //readonly
     }
 
     printEmployeeInformation(){
@@ -20,7 +23,7 @@ class Department {
     }
 }
 
-const accounting = new Department('Accounting')
+const accounting = new Department('d1','Accounting')
 
 // console.log(accounting)
 
