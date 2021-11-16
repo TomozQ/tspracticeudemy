@@ -33,13 +33,31 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department{
+    private lastReport: string
+
+    get mostRecentReport() {  //Geter -> 必ず戻り値を設定しなくてはならない
+        if(this.lastReport) {
+            return this.lastReport
+        }
+        throw new Error('レポートが見つかりません')
+    }
+
+    set mostRecentReport(value: string) { //Setter -> 必ず引数を取らなくてはならない
+        if (!value) {
+            throw new Error('正しい値を設定してください。')
+        }
+        this.addReport(value)
+    }
+
     constructor( id: string, private reports: string[]) {
         super(id, 'Accounting')
         this.reports = reports
+        this.lastReport = reports[0]
     }
 
     addReport(text: string){
         this.reports.push(text)
+        this.lastReport = text
     }
 
     printReports(){
@@ -57,9 +75,14 @@ class AccountingDepartment extends Department{
 const it = new ITDepartment('d1', ['Max']) //Departmentクラス（ベースクラス）のサブクラス
 
 const accounting = new AccountingDepartment('d2', [])
+
+accounting.mostRecentReport = '通期会計レポート'  //メソッドのように（）を記述しなくてよい この形で引数を渡す。
 accounting.addReport('Something')
+console.log(accounting.mostRecentReport) //Getterにはメソッドのように（）を記述しなくてよい
+
 accounting.printReports()
 console.log(accounting)
+
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
 accounting.printEmployeeInformation()  //継承元のメソッドも使用することができる。
