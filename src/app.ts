@@ -23,18 +23,47 @@ class Department {
     }
 }
 
-const accounting = new Department('d1','Accounting')
+class ITDepartment extends Department {
+    // admins: string[]
+    constructor( id: string, private admins: string[]) {
+        super(id, 'IT')
+        this.admins = admins
+    }
+}
 
-// console.log(accounting)
+class AccountingDepartment extends Department{
+    constructor( id: string, private reports: string[]) {
+        super(id, 'Accounting')
+        this.reports = reports
+    }
 
-accounting.addEmployee('Max')
-accounting.addEmployee('Manu')
+    addReport(text: string){
+        this.reports.push(text)
+    }
 
-// accounting.employees[2] = 'Anna'　//employeesがprivateなのでアクセスできない 最近のprivate, publicの別があるJSであれば大丈夫だがそれ以外は実際にはコンパイルしてアクセスできてしまう
+    printReports(){
+        console.log(this.reports)
+    }
+}
 
-accounting.describe()
-accounting.printEmployeeInformation()
+const it = new ITDepartment('d1', ['Max']) //Departmentクラス（ベースクラス）のサブクラス
 
+const accounting = new AccountingDepartment('d2', [])
+accounting.addReport('Something')
+accounting.printReports()
+console.log(accounting)
+
+// console.log(it)
+
+it.addEmployee('Max')
+it.addEmployee('Manu')
+
+// it.employees[2] = 'Anna'　//employeesがprivateなのでアクセスできない 最近のprivate, publicの別があるJSであれば大丈夫だがそれ以外は実際にはコンパイルしてアクセスできてしまう
+
+it.describe()
+it.printEmployeeInformation()
+
+console.log(it)
 
 // const accountingCopy = { name: 'Dumy', describe: accounting.describe }  //Departmentクラスと同じプロパティであればTypeScriptはエラーを吐かない
 
