@@ -1,4 +1,4 @@
-class Department {
+abstract class Department { //抽象クラス　継承先のクラスでは必ずabstractのメソッドを実装しなくてはならない  //抽象クラスはインスタント化することができない（new できない）
     static fiscalYear = 2020
     // private readonly id: string
     // name: string
@@ -9,16 +9,19 @@ class Department {
         return { name: name }
     }
 
-    constructor(private readonly id: string, public name: string) {  //上にプロパティを記述しなくてもここに定義することでショートカットできる
+    constructor(protected readonly id: string, public name: string) {  //上にプロパティを記述しなくてもここに定義することでショートカットできる
         // this.id = id                                                 //readonly -> 初期化以降値を変更できないようにする
         // this.name = n
-        console.log(this.fiscalYear) //staticプロパティはインスタンスからアクセスできない
+        // console.log(this.fiscalYear) //staticプロパティはインスタンスからアクセスできない
         console.log(Department.fiscalYear) //クラスからはアクセスすることができる。
     }
 
-    describe(this: Department){  //ダミーパラメータを使用することで堅牢にする
-        console.log(`Department (${this.id}): ${this.name}`)
-    }
+    // describe(this: Department){  //ダミーパラメータを使用することで堅牢にする
+    //     // console.log(`Department (${this.id}): ${this.name}`)
+    // }
+
+    abstract describe(this: Department): void  //abstractでは構造体のみ定義する。 メソッド名と戻り値の型
+    //メソッド名はdescribeで無くてはならない・thisのオブジェクトはDepartmentクラスかそれを継承したサブクラスでないとならない・戻り値はvoid(何も返さないクラス)でなくてはならない
 
     addEmployee(employee: string){
         this.employees.push(employee)
@@ -36,6 +39,10 @@ class ITDepartment extends Department {
     constructor( id: string, private admins: string[]) {
         super(id, 'IT')
         this.admins = admins
+    }
+
+    describe(){
+        console.log('IT部門　- id: ' + this.id)
     }
 }
 
@@ -60,6 +67,10 @@ class AccountingDepartment extends Department{
         super(id, 'Accounting')
         this.reports = reports
         this.lastReport = reports[0]
+    }
+
+    describe() {
+        console.log('会計部門ID: ' + this.id)
     }
 
     addReport(text: string){
@@ -90,12 +101,14 @@ accounting.mostRecentReport = '通期会計レポート'  //メソッドのよ�
 accounting.addReport('Something')
 console.log(accounting.mostRecentReport) //Getterにはメソッドのように（）を記述しなくてよい
 
-accounting.printReports()
-console.log(accounting)
+// accounting.printReports()
+// console.log(accounting)
 
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
-accounting.printEmployeeInformation()  //継承元のメソッドも使用することができる。
+// accounting.printEmployeeInformation()  //継承元のメソッドも使用することができる。
+
+accounting.describe()
 
 // console.log(it)
 
