@@ -1,7 +1,7 @@
 //interface -> objectがどんな形のものであるか定義するためのもの
 // type Person = {  //typeとinterfaceは互換性がある。 interfaceはオブジェクトの構造を定義するためだけに使用できる
 interface Greetable  {
-    name: string
+    readonly name: string  //public privateはinterfaceでは利用できない 初期化の際に一度だけ代入される
     greet(phrase: string): void
 }
 
@@ -20,6 +20,7 @@ let user1: Greetable   //Personで定義されている内容をプロパティ�
 
 user1 = new Person('Max')   //上でGreetableと型定義しているが、PersonクラスはGreetableインターフェースを実装しているので問題なくインスタンス化できる。
 //interfaceに基づいたオブジェクトを作成している。
+// user1.name = 'Mane' interfaceのreadonlyを利用している。
 
 user1.greet('Hello i am ')
 
