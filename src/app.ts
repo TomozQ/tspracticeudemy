@@ -49,6 +49,9 @@ class ITDepartment extends Department {
 class AccountingDepartment extends Department{
     private lastReport: string
 
+    private static instance: AccountingDepartment //instanceにはAccountingDepartmentオブジェクトを格納するという型定義 性的プロパティ
+    // -> クラス自体が持っているフィールド/クラス内からのみアクセスできる
+
     get mostRecentReport() {  //Geter -> 必ず戻り値を設定しなくてはならない
         if(this.lastReport) {
             return this.lastReport
@@ -63,10 +66,19 @@ class AccountingDepartment extends Department{
         this.addReport(value)
     }
 
-    constructor( id: string, private reports: string[]) {
+    private constructor( id: string, private reports: string[]) { //privateコンストラクター
         super(id, 'Accounting')
         this.reports = reports
         this.lastReport = reports[0]
+    }
+
+    static getInstance() {
+        if (this.instance) { //(if (AccountingDepartment.instance) {})
+            return this.instance
+        }
+
+        this.instance = new AccountingDepartment('d2', [])  //1回しか実行されない
+        return this.instance
     }
 
     describe() {
@@ -95,7 +107,11 @@ console.log('employee', employee1, Department.fiscalYear)
 
 const it = new ITDepartment('d1', ['Max']) //Departmentクラス（ベースクラス）のサブクラス
 
-const accounting = new AccountingDepartment('d2', [])
+// const accounting = new AccountingDepartment('d2', [])
+const accounting = AccountingDepartment.getInstance()  //accountingもaccounting2も同じ値となる
+const accounting2 = AccountingDepartment.getInstance()
+
+console.log(accounting, accounting2)
 
 accounting.mostRecentReport = '通期会計レポート'  //メソッドのように（）を記述しなくてよい この形で引数を渡す。
 accounting.addReport('Something')

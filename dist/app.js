@@ -72,6 +72,13 @@ var AccountingDepartment = (function (_super) {
         enumerable: false,
         configurable: true
     });
+    AccountingDepartment.getInstance = function () {
+        if (this.instance) {
+            return this.instance;
+        }
+        this.instance = new AccountingDepartment('d2', []);
+        return this.instance;
+    };
     AccountingDepartment.prototype.describe = function () {
         console.log('会計部門ID: ' + this.id);
     };
@@ -93,7 +100,9 @@ var AccountingDepartment = (function (_super) {
 var employee1 = Department.createEmployee('Max');
 console.log('employee', employee1, Department.fiscalYear);
 var it = new ITDepartment('d1', ['Max']);
-var accounting = new AccountingDepartment('d2', []);
+var accounting = AccountingDepartment.getInstance();
+var accounting2 = AccountingDepartment.getInstance();
+console.log(accounting, accounting2);
 accounting.mostRecentReport = '通期会計レポート';
 accounting.addReport('Something');
 console.log(accounting.mostRecentReport);
