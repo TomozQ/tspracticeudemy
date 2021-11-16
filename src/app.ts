@@ -1,7 +1,8 @@
 class Department {
     // private readonly id: string
     // name: string
-    private employees: string[] = [] // private クラスの内部からのみアクセスできる
+    // private employees: string[] = [] // private クラスの内部からのみアクセスできる
+    protected employees: string[] = [] // protected クラスの外からアクセスすることはできないが継承先のクラスからはアクセス可能
 
     constructor(private readonly id: string, public name: string) {  //上にプロパティを記述しなくてもここに定義することでショートカットできる
         // this.id = id                                                 //readonly -> 初期化以降値を変更できないようにする
@@ -44,6 +45,13 @@ class AccountingDepartment extends Department{
     printReports(){
         console.log(this.reports)
     }
+
+    addEmployee(name: string){
+        if (name === 'Max'){
+            return
+        }
+        this.employees.push(name)
+    }
 }
 
 const it = new ITDepartment('d1', ['Max']) //Departmentクラス（ベースクラス）のサブクラス
@@ -52,6 +60,9 @@ const accounting = new AccountingDepartment('d2', [])
 accounting.addReport('Something')
 accounting.printReports()
 console.log(accounting)
+accounting.addEmployee('Max')
+accounting.addEmployee('Manu')
+accounting.printEmployeeInformation()  //継承元のメソッドも使用することができる。
 
 // console.log(it)
 
