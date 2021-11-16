@@ -1,12 +1,19 @@
 class Department {
+    static fiscalYear = 2020
     // private readonly id: string
     // name: string
     // private employees: string[] = [] // private クラスの内部からのみアクセスできる
     protected employees: string[] = [] // protected クラスの外からアクセスすることはできないが継承先のクラスからはアクセス可能
 
+    static createEmployee(name: string) {
+        return { name: name }
+    }
+
     constructor(private readonly id: string, public name: string) {  //上にプロパティを記述しなくてもここに定義することでショートカットできる
         // this.id = id                                                 //readonly -> 初期化以降値を変更できないようにする
         // this.name = n
+        console.log(this.fiscalYear) //staticプロパティはインスタンスからアクセスできない
+        console.log(Department.fiscalYear) //クラスからはアクセスすることができる。
     }
 
     describe(this: Department){  //ダミーパラメータを使用することで堅牢にする
@@ -71,6 +78,9 @@ class AccountingDepartment extends Department{
         this.employees.push(name)
     }
 }
+
+const employee1 = Department.createEmployee('Max')
+console.log('employee', employee1, Department.fiscalYear)
 
 const it = new ITDepartment('d1', ['Max']) //Departmentクラス（ベースクラス）のサブクラス
 
