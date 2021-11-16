@@ -1,7 +1,9 @@
 //interface -> objectがどんな形のものであるか定義するためのもの
+interface Named {
+    readonly name: string
+}
 // type Person = {  //typeとinterfaceは互換性がある。 interfaceはオブジェクトの構造を定義するためだけに使用できる
-interface Greetable  {
-    readonly name: string  //public privateはinterfaceでは利用できない 初期化の際に一度だけ代入される
+interface Greetable extends Named{  //Namedを継承 複数のinterfaceを継承することができる。
     greet(phrase: string): void
 }
 
