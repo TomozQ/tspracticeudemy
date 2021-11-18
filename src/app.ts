@@ -40,6 +40,19 @@ function add ( a:Cominable, b: Cominable ){
 const result = add('Hello','TypeScript')
 result.split('')
 
+//optionalChain
+const fetchedUserDatta = {
+    id: 'u1',
+    name: 'Max',
+    job: {
+        title: 'Developer',
+        description: 'typescript'
+    },
+}
+
+
+console.log(fetchedUserDatta?.job?.title)  //安全にアクセスできる。実行時エラーを避けることができる。
+
 // type UnknownEmployee = Employee | Admin
 
 // function printEmployeeInformation(emp: UnknownEmployee){
