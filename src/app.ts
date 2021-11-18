@@ -23,6 +23,11 @@ type Numeric = number | boolean
 
 type Universal = Cominable & Numeric
 
+// function add(a: number): number
+function add(a: number, b: number): number; //functionOverRoad
+function add(a: string, b: string): string; //functionOverRoad
+function add(a: number, b: string): string; //functionOverRoad
+function add(a: string, b: number): string; //functionOverRoad
 function add ( a:Cominable, b: Cominable ){
     if(typeof a === 'string' || typeof b === 'string'){ //typeガード
         return a.toString() + b.toString()
@@ -30,98 +35,104 @@ function add ( a:Cominable, b: Cominable ){
     return a + b
 }
 
-type UnknownEmployee = Employee | Admin
+// const result = add(1,5)
+// const result = add('Hello','TypeScript') as string
+const result = add('Hello','TypeScript')
+result.split('')
 
-function printEmployeeInformation(emp: UnknownEmployee){
-    console.log(emp.name)
-    if('privilages' in emp){
-        console.log("privilages" + emp.privilages)
-    }
-    if('startDate' in emp){
-        console.log("startDate" + emp.startDate)
-    }
-}
+// type UnknownEmployee = Employee | Admin
 
-printEmployeeInformation({name: 'manu', startDate: new Date()})
+// function printEmployeeInformation(emp: UnknownEmployee){
+//     console.log(emp.name)
+//     if('privilages' in emp){
+//         console.log("privilages" + emp.privilages)
+//     }
+//     if('startDate' in emp){
+//         console.log("startDate" + emp.startDate)
+//     }
+// }
 
-class Car {
-    drive(){
-        console.log('運転中')
-    }
-}
+// printEmployeeInformation({name: 'manu', startDate: new Date()})
 
-class Track{
-    drive(){
-        console.log('トラックを運転中')
-    }
+// class Car {
+//     drive(){
+//         console.log('運転中')
+//     }
+// }
 
-    loadCargo(amount: number){
-        console.log('荷物を載せています・・・' + amount)
-    }
-}
+// class Track{
+//     drive(){
+//         console.log('トラックを運転中')
+//     }
 
-type Vehcle = Car | Track
+//     loadCargo(amount: number){
+//         console.log('荷物を載せています・・・' + amount)
+//     }
+// }
 
-const v1 = new Car()
-const v2 = new Track()
+// type Vehcle = Car | Track
 
-function useVehcle(vehicle: Vehcle){
-    vehicle.drive()
-    if(vehicle instanceof Track){  //instanceof での型ガード
-        vehicle.loadCargo(1000)
-    }
-}
+// const v1 = new Car()
+// const v2 = new Track()
 
-useVehcle(v1)
-useVehcle(v2)
+// function useVehcle(vehicle: Vehcle){
+//     vehicle.drive()
+//     if(vehicle instanceof Track){  //instanceof での型ガード
+//         vehicle.loadCargo(1000)
+//     }
+// }
 
-interface Bird{
-    type: 'bird' //値ではない。birdという文字列のみを許容したstring型
-    flyingSpeed: number
-}
+// useVehcle(v1)
+// useVehcle(v2)
 
-interface Horse {
-    type: 'horse'
-    runningSpeed: number
-}
+// interface Bird{
+//     type: 'bird' //値ではない。birdという文字列のみを許容したstring型
+//     flyingSpeed: number
+// }
 
-type Animal = Bird | Horse
+// interface Horse {
+//     type: 'horse'
+//     runningSpeed: number
+// }
 
-function moveAnimal(animal: Animal){
-    // if('flyingSpeed' in animal){
-    //     console.log(animal.flyingSpeed)
-    // }
-    let speed
-    switch (animal.type){
-        case 'bird':
-            speed = animal.flyingSpeed
-            break
-        case 'horse':
-            speed = animal.runningSpeed
-            break
-    }
-    console.log('移動速度: ' + speed)
-}
+// type Animal = Bird | Horse
 
-moveAnimal({type: "bird", flyingSpeed: 10})
+// function moveAnimal(animal: Animal){
+//     // if('flyingSpeed' in animal){
+//     //     console.log(animal.flyingSpeed)
+//     // }
+//     let speed
+//     switch (animal.type){
+//         case 'bird':
+//             speed = animal.flyingSpeed
+//             break
+//         case 'horse':
+//             speed = animal.runningSpeed
+//             break
+//     }
+//     console.log('移動速度: ' + speed)
+// }
 
-const paragraph = document.getElementById('message-output')
-// const userInputElement = <HTMLInputElement>document.getElementById('user-input')! //<HTMLInputElement>はgrovalに使える
-// const userInputElement = document.getElementById('user-input')! as HTMLInputElement
-const userInputElement = document.getElementById('user-input')
+// moveAnimal({type: "bird", flyingSpeed: 10})
 
-if(userInputElement){
-    (userInputElement as HTMLInputElement).value = 'こんにちは'
-}
+// const paragraph = document.getElementById('message-output')
+// // const userInputElement = <HTMLInputElement>document.getElementById('user-input')! //<HTMLInputElement>はgrovalに使える
+// // const userInputElement = document.getElementById('user-input')! as HTMLInputElement
+// const userInputElement = document.getElementById('user-input')
 
-//indexType
-interface ErrorContainer { //{ email: '正しいメールアドレスではありません', {username: 'ユーザー名に記号を含めることはできません'}}
-    // id: string //このインターフェースで作成されるオブジェクトはidを持っていなくてはならない。index型と同じ型でなくてはならない。
-    [prop: string]: string //booleanは設定できない オブジェクトのプロパティの正確な名前がわからない。いくつのプロパティを持つオブジェクトかもわからない このインターフェースで作成されたオブジェクトのプロパティはstring型でなくてはならない。プロパティに格納される値もstringでなくてはならない
-}
+// if(userInputElement){
+//     (userInputElement as HTMLInputElement).value = 'こんにちは'
+// }
 
-const errorBag: ErrorContainer = {
-    mail: '正しいメールアドレスではありません。',
-    // 1: '正しいメールアドレスではありません。' //1はstringに変換できるのでプロパティに数値を使用することができる。
-    username: 'ユーザー名に記号を含めることはできません'
-}
+// //indexType
+// interface ErrorContainer { //{ email: '正しいメールアドレスではありません', {username: 'ユーザー名に記号を含めることはできません'}}
+//     // id: string //このインターフェースで作成されるオブジェクトはidを持っていなくてはならない。index型と同じ型でなくてはならない。
+//     [prop: string]: string //booleanは設定できない オブジェクトのプロパティの正確な名前がわからない。いくつのプロパティを持つオブジェクトかもわからない このインターフェースで作成されたオブジェクトのプロパティはstring型でなくてはならない。プロパティに格納される値もstringでなくてはならない
+// }
+
+// const errorBag: ErrorContainer = {
+//     mail: '正しいメールアドレスではありません。',
+//     // 1: '正しいメールアドレスではありません。' //1はstringに変換できるのでプロパティに数値を使用することができる。
+//     username: 'ユーザー名に記号を含めることはできません'
+// }
+
