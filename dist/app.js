@@ -62,4 +62,7 @@ function moveAnimal(animal) {
     console.log('移動速度: ' + speed);
 }
 moveAnimal({ type: "bird", flyingSpeed: 10 });
+var paragraph = document.getElementById('message-output');
+var userInputElement = document.getElementById('user-input');
+userInputElement.value = 'こんにちは';
 //# sourceMappingURL=app.js.map
