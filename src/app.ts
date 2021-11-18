@@ -53,6 +53,17 @@ const fetchedUserDatta = {
 
 console.log(fetchedUserDatta?.job?.title)  //安全にアクセスできる。実行時エラーを避けることができる。
 
+
+//nullish Coalescing Operator
+// const userInput = null
+const userInput = ''
+
+// const storedData = userInput || 'DEFAULT' //userInputがnullまたはundefinedだった場合'DEFAULT'が格納される。　空文字もfalsyなのでDEFAULTが格納される
+const storedData = userInput ?? 'DEFAULT' //userInputがnullまたはundefinedだった場合'DEFAULT'が格納される　空文字の場合は格納されない。
+
+console.log(storedData)
+
+
 // type UnknownEmployee = Employee | Admin
 
 // function printEmployeeInformation(emp: UnknownEmployee){

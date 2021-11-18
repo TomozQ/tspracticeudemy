@@ -22,4 +22,7 @@ var fetchedUserDatta = {
     },
 };
 console.log((_a = fetchedUserDatta === null || fetchedUserDatta === void 0 ? void 0 : fetchedUserDatta.job) === null || _a === void 0 ? void 0 : _a.title);
+var userInput = '';
+var storedData = userInput !== null && userInput !== void 0 ? userInput : 'DEFAULT';
+console.log(storedData);
 //# sourceMappingURL=app.js.map
