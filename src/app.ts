@@ -113,3 +113,15 @@ const userInputElement = document.getElementById('user-input')
 if(userInputElement){
     (userInputElement as HTMLInputElement).value = 'こんにちは'
 }
+
+//indexType
+interface ErrorContainer { //{ email: '正しいメールアドレスではありません', {username: 'ユーザー名に記号を含めることはできません'}}
+    // id: string //このインターフェースで作成されるオブジェクトはidを持っていなくてはならない。index型と同じ型でなくてはならない。
+    [prop: string]: string //booleanは設定できない オブジェクトのプロパティの正確な名前がわからない。いくつのプロパティを持つオブジェクトかもわからない このインターフェースで作成されたオブジェクトのプロパティはstring型でなくてはならない。プロパティに格納される値もstringでなくてはならない
+}
+
+const errorBag: ErrorContainer = {
+    mail: '正しいメールアドレスではありません。',
+    // 1: '正しいメールアドレスではありません。' //1はstringに変換できるのでプロパティに数値を使用することができる。
+    username: 'ユーザー名に記号を含めることはできません'
+}
