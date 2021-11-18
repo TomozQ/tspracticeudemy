@@ -64,5 +64,7 @@ function moveAnimal(animal) {
 moveAnimal({ type: "bird", flyingSpeed: 10 });
 var paragraph = document.getElementById('message-output');
 var userInputElement = document.getElementById('user-input');
-userInputElement.value = 'こんにちは';
+if (userInputElement) {
+    userInputElement.value = 'こんにちは';
+}
 //# sourceMappingURL=app.js.map
