@@ -74,3 +74,33 @@ function useVehcle(vehicle: Vehcle){
 
 useVehcle(v1)
 useVehcle(v2)
+
+interface Bird{
+    type: 'bird' //値ではない。birdという文字列のみを許容したstring型
+    flyingSpeed: number
+}
+
+interface Horse {
+    type: 'horse'
+    runningSpeed: number
+}
+
+type Animal = Bird | Horse
+
+function moveAnimal(animal: Animal){
+    // if('flyingSpeed' in animal){
+    //     console.log(animal.flyingSpeed)
+    // }
+    let speed
+    switch (animal.type){
+        case 'bird':
+            speed = animal.flyingSpeed
+            break
+        case 'horse':
+            speed = animal.runningSpeed
+            break
+    }
+    console.log('移動速度: ' + speed)
+}
+
+moveAnimal({type: "bird", flyingSpeed: 10})
