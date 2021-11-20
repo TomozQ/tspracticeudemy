@@ -18,13 +18,25 @@
 
 //generic function
 // function merge<T, U>(objA: {name: string}, objB: {age: number}){  //オブジェクトには何が入ってくるかわからない状況で、このように型を限定したくない
-function merge<T, U>(objA: T, objB: U){  //交差型を返す　//T/Uはどんな型でも良い。TとUが同じ型でもよい。（2つの異なる型を受け取ることを定義している。TypeScriptはこれを推論する。）
-    return Object.assign(objA, objB)
+function merge<T extends object, U extends object>(objA: T, objB: U){   //extends 型　とすることでどんな型でもよいがobjectになってないとならないという制約をつける
+    return Object.assign(objA, objB)　// object.assignを呼びだしている為この場合は引数がobjectでなくてはならない
 }
 
-const mergedObject = merge({name: 'Max'}, {age: 30})
-// const mergedObject2 = merge<string, number>({name: 'Max', hobbies: ['Sports']}, {age: 30}) //呼び出し時に型を定義することができる。この場合は1つ目がstring、2つ目がnumber
-// const mergedObject2 = merge<{name: string, hobbies: string[]}, {age: number}>({name: 'Max', hobbies: ['Sports']}, {age: 30}) //呼び出し時に型を定義することはできるがこの書き方は冗長
+const mergedObject = merge({name: 'Max', hobbies: ['Sports']}, {age: 30}) //呼び出し時に型を定義することはできるがこの書き方は冗長
+console.log(mergedObject)
 
-const mergedObject2 = merge({name: 'Max', hobbies: ['Sports']}, 30) //呼び出し時に型を定義することはできるがこの書き方は冗長
-console.log(mergedObject2)
+
+//another generic function
+interface Lengthy {
+    length: number
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string]{
+    let descriptionText = '値がありません'
+    if(element.length > 0){
+        descriptionText = `値は${element.length}個です`
+    }
+    return [element, descriptionText]
+}
+
+console.log(countAndDescribe(['Sports', 'Cooking']))

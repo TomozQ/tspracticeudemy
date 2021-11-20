@@ -2,7 +2,14 @@
 function merge(objA, objB) {
     return Object.assign(objA, objB);
 }
-const mergedObject = merge({ name: 'Max' }, { age: 30 });
-const mergedObject2 = merge({ name: 'Max', hobbies: ['Sports'] }, 30);
-console.log(mergedObject2);
+const mergedObject = merge({ name: 'Max', hobbies: ['Sports'] }, { age: 30 });
+console.log(mergedObject);
+function countAndDescribe(element) {
+    let descriptionText = '値がありません';
+    if (element.length > 0) {
+        descriptionText = `値は${element.length}個です`;
+    }
+    return [element, descriptionText];
+}
+console.log(countAndDescribe(['Sports', 'Cooking']));
 //# sourceMappingURL=app.js.map
