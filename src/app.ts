@@ -91,3 +91,32 @@ const numberStorage = new DataStorage<number>()
 // // ...
 // objStorage.removeItem(obj)
 // console.log(objStorage.getItems())
+
+
+//generic utility
+interface CourseGoal {
+    title: string
+    description: string
+    completeUntil: Date
+}
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+    // return {
+    //     title: titel,
+    //     description: description,
+    //     completeUntil: date
+    // }
+
+    let courseGoal: Partial<CourseGoal> = {}    //Partial -> genericsに指定されたobjectのプロパティをoptionalなものに変更する。
+                                                // {} のように空のオブジェクトを設定することができる。
+    courseGoal.title = title
+    courseGoal.description = description
+    courseGoal.completeUntil = date
+
+    return courseGoal as CourseGoal  //Partial型となっているので最後はCourseGoalにキャストする
+    
+}
+
+const names: Readonly<string[]>= ['max', 'anna']  //読みとり専用の文字列の配列であることを定義
+// names.push('manu')  //コンパイルエラーが発生する
+// names.pop() //コンパイルエラー
