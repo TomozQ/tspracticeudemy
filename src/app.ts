@@ -51,8 +51,17 @@ extractAndConvert({name: 'Max'}, 'name')
 
 //generic class
 
-class DataStorage<T extends string | number | boolean> {    //Tを←のようなユニオン型にすることで、objectを使用できないように制限する。
+//genericとunionの違い
+//classの場合genericは複数の中から一つの型を許容し、クラス内では全てその型を使用することを強制できる。
+//union型は各定数、引数でstring | number | booleanというように定義しこのどれかであれば許容してしまう。
+//よってunion型だと関数によって使用できないメソッドなどが出てくる。
+
+//union関数が呼ばれたときに毎回その型を受け入れるというような処理に向いている。
+//generic型はクラスや関数の全体でいずれか一つの型に固定したい場合
+
+// class DataStorage<T extends string | number | boolean> {    //Tを←のようなユニオン型にすることで、objectを使用できないように制限する。
                                                             // （objectはobject用のgenericが必要になる場合が多い）
+class DataStorage <T extends string | number | boolean>{
     private data: T[] = []
 
     addItem(item: T){
@@ -76,13 +85,13 @@ class DataStorage<T extends string | number | boolean> {    //Tを←のよう�
     }
 }
 
-const textStorage = new DataStorage<string>()
+const textStorage = new DataStorage()
 textStorage.addItem('data1')
 textStorage.addItem('data2')
 textStorage.removeItem('data1')
 console.log(textStorage.getItems())
 
-const numberStorage = new DataStorage<number>()
+const numberStorage = new DataStorage()
 
 // const objStorage = new DataStorage<object>()
 // const obj = {name: 'Max'}  //オブジェクトではremoveItemが正しく動作しないため、一旦定数に格納しプリミティブ型として処理をする。
