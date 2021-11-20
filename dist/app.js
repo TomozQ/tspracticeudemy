@@ -6,13 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 function Logger(logString) {
+    console.log('Logger factory');
     return function (constructor) {
         console.log(logString);
         console.log(constructor);
     };
 }
 function WithTemplate(template, hookId) {
+    console.log('TEMPLATE factory');
     return function (constructor) {
+        console.log('テンプレートを表示');
         const hookEl = document.getElementById(hookId);
         const p = new constructor();
         if (hookEl) {
@@ -28,6 +31,7 @@ let Person = class Person {
     }
 };
 Person = __decorate([
+    Logger('ログ出力中 - Person'),
     WithTemplate('<h1>Personオブジェクト</h1>', 'app')
 ], Person);
 const pers = new Person();
