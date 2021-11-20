@@ -1,28 +1,8 @@
 "use strict";
-var _a;
-var e1 = {
-    name: 'Max',
-    privilages: ['create-server'],
-    startDate: new Date,
-};
-function add(a, b) {
-    if (typeof a === 'string' || typeof b === 'string') {
-        return a.toString() + b.toString();
-    }
-    return a + b;
+function merge(objA, objB) {
+    return Object.assign(objA, objB);
 }
-var result = add('Hello', 'TypeScript');
-result.split('');
-var fetchedUserDatta = {
-    id: 'u1',
-    name: 'Max',
-    job: {
-        title: 'Developer',
-        description: 'typescript'
-    },
-};
-console.log((_a = fetchedUserDatta === null || fetchedUserDatta === void 0 ? void 0 : fetchedUserDatta.job) === null || _a === void 0 ? void 0 : _a.title);
-var userInput = '';
-var storedData = userInput !== null && userInput !== void 0 ? userInput : 'DEFAULT';
-console.log(storedData);
+const mergedObject = merge({ name: 'Max' }, { age: 30 });
+const mergedObject2 = merge({ name: 'Max', hobbies: ['Sports'] }, 30);
+console.log(mergedObject2);
 //# sourceMappingURL=app.js.map
