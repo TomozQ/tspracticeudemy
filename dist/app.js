@@ -94,4 +94,33 @@ __decorate([
 ], Product.prototype, "getPriceWithTax", null);
 const p1 = new Product('book', 100);
 const p2 = new Product('book', 200);
+function Autobind(_, __, descriptor) {
+    const originalMethod = descriptor.value;
+    console.log(originalMethod);
+    const adjDescriptor = {
+        configurable: true,
+        enumerable: false,
+        get() {
+            const boundFn = originalMethod.bind(this);
+            return boundFn;
+        }
+    };
+    console.log('adjDescriptor', adjDescriptor);
+    return adjDescriptor;
+}
+class Printer {
+    constructor() {
+        this.message = 'クリックしました';
+    }
+    showMessage() {
+        console.log(this.message);
+    }
+}
+__decorate([
+    Autobind
+], Printer.prototype, "showMessage", null);
+const p = new Printer();
+p.showMessage();
+const button = document.querySelector('button');
+button.addEventListener('click', p.showMessage);
 //# sourceMappingURL=app.js.map
