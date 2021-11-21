@@ -5,122 +5,74 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-function Logger(logString) {
-    console.log('Logger factory');
-    return function (constructor) {
-        console.log(logString);
-        console.log(constructor);
-    };
+const registerdValidators = {};
+function Required(target, propName) {
+    var _a, _b;
+    console.log('Required target', target);
+    console.log('Required propName', propName);
+    console.log('registerdValidators', registerdValidators);
+    registerdValidators[target.constructor.name] = Object.assign(Object.assign({}, registerdValidators[target.constructor.name]), { [propName]: [
+            ...((_b = (_a = registerdValidators[target.constructor.name]) === null || _a === void 0 ? void 0 : _a[propName]) !== null && _b !== void 0 ? _b : []),
+            "required",
+        ] });
+    console.log('registerdValidators', registerdValidators);
+    console.log(Object.assign({}, registerdValidators[target.constructor.name]));
 }
-function WithTemplate(template, hookId) {
-    console.log('TEMPLATE factory');
-    return function (originalConstructor) {
-        return class extends originalConstructor {
-            constructor(..._) {
-                super();
-                console.log('テンプレートを表示');
-                const hookEl = document.getElementById(hookId);
-                if (hookEl) {
-                    hookEl.innerHTML = template;
-                    hookEl.querySelector('h1').textContent = this.name;
-                }
-            }
-        };
-    };
+function PositiveNumber(target, propName) {
+    var _a, _b;
+    registerdValidators[target.constructor.name] = Object.assign(Object.assign({}, registerdValidators[target.constructor.name]), { [propName]: [
+            ...((_b = (_a = registerdValidators[target.constructor.name]) === null || _a === void 0 ? void 0 : _a[propName]) !== null && _b !== void 0 ? _b : []),
+            "positive",
+        ] });
+    console.log(Object.assign({}, registerdValidators[target.constructor.name]));
 }
-let Person = class Person {
-    constructor() {
-        this.name = 'Max';
-        console.log('Personオブジェクトを作成中...');
+function validate(obj) {
+    const objValidatorConfig = registerdValidators[obj.constructor.name];
+    if (!objValidatorConfig) {
+        return true;
     }
-};
-Person = __decorate([
-    Logger('ログ出力中 - Person'),
-    WithTemplate('<h1>Personオブジェクト</h1>', 'app')
-], Person);
-const pers = new Person();
-console.log(pers);
-function Log(target, propertyname) {
-    console.log('Property Decorator');
-    console.log(target, propertyname);
+    let isValid = true;
+    console.log('objValidatorConfig', objValidatorConfig);
+    for (const prop in objValidatorConfig) {
+        console.log('prop', prop);
+        for (const validator of objValidatorConfig[prop]) {
+            console.log('validator', validator, 'validate target: ', obj[prop]);
+            switch (validator) {
+                case 'required':
+                    isValid = isValid && !!obj[prop];
+                    break;
+                case 'positive':
+                    isValid = isValid && obj[prop] > 0;
+                    break;
+            }
+        }
+    }
+    return isValid;
 }
-function Log2(target, name, descriptor) {
-    console.log("Accessor decorator");
-    console.log(target);
-    console.log(name);
-    console.log(descriptor);
-}
-function Log3(target, name, descriptor) {
-    console.log("Method decorator");
-    console.log(target);
-    console.log(name);
-    console.log(descriptor);
-}
-function Log4(target, name, position) {
-    console.log("Parameter decorator");
-    console.log(target);
-    console.log(name);
-    console.log(position);
-}
-class Product {
+class Course {
     constructor(t, p) {
         this.title = t;
-        this._price = p;
-    }
-    set price(val) {
-        if (val > 0) {
-            this._price = val;
-        }
-        else {
-            throw new Error('不正な価格です - 0以下は設定できません。');
-        }
-    }
-    getPriceWithTax(tax) {
-        return this._price * (1 + tax);
+        this.price = p;
     }
 }
 __decorate([
-    Log
-], Product.prototype, "title", void 0);
+    Required
+], Course.prototype, "title", void 0);
 __decorate([
-    Log2
-], Product.prototype, "price", null);
-__decorate([
-    Log3,
-    __param(0, Log4)
-], Product.prototype, "getPriceWithTax", null);
-const p1 = new Product('book', 100);
-const p2 = new Product('book', 200);
-function Autobind(_, __, descriptor) {
-    const originalMethod = descriptor.value;
-    console.log(originalMethod);
-    const adjDescriptor = {
-        configurable: true,
-        enumerable: false,
-        get() {
-            const boundFn = originalMethod.bind(this);
-            return boundFn;
-        }
-    };
-    console.log('adjDescriptor', adjDescriptor);
-    return adjDescriptor;
-}
-class Printer {
-    constructor() {
-        this.message = 'クリックしました';
+    PositiveNumber
+], Course.prototype, "price", void 0);
+const courseForm = document.querySelector('form');
+courseForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const titleEl = document.getElementById('title');
+    const priceEl = document.getElementById('price');
+    const title = titleEl.value;
+    const price = +priceEl.value;
+    const createdCourse = new Course(title, price);
+    if (!validate(createdCourse)) {
+        alert('正しく入力されていません。');
+        return;
     }
-    showMessage() {
-        console.log(this.message);
-    }
-}
-__decorate([
-    Autobind
-], Printer.prototype, "showMessage", null);
-const p = new Printer();
-p.showMessage();
-const button = document.querySelector('button');
-button.addEventListener('click', p.showMessage);
+    console.log(createdCourse);
+});
 //# sourceMappingURL=app.js.map
